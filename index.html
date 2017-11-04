@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Launchpad Text Display</title>
+		<link rel="stylesheet" href="index.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/webmidi@2.0.0-rc.10/webmidi.min.js"></script>
+		<script src="devices.js"></script>
+		<script src="index.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<h4>Text Display for Launchpad MKII</h4>
+			<div>
+				<input id="connectBtn" type="button" value="Connect" onclick="connect()" />
+				<output id="connectionStatus">Not connected.</output>
+			</div>
+			<div>
+				<label for="inputText">Display text on the Launchpad:</label>
+				<input id="inputText" type="text">
+			</div>
+			<div>
+				<label for="colorSelect">Select a colour:</label>
+				<input id="colorSelect" type="number" min="0" max="127" value="72" />
+			</div>
+			<div>
+				<label for="colorPicker">Select a colour:</label>
+				<input id="colorPicker" type="color" />
+			</div>
+			<div>
+				<label for="speed">Select a speed:</label>
+				<input id="speed" type="range" min="1" max="7" value="4" step="1" />
+			</div>
+			<div>
+				<label for="loopText">Loop the text:</label>
+				<input id="loopText" type="checkbox" />
+			<div>
+				<input id="sendText" type="button" value="Display" onclick="passText()" />
+			</div>
+			<div>
+				<input id="stopText" type="button" value="Stop" onclick="device.stopText()" />
+			</div>
+		</div>
+	</body>
+</html>
