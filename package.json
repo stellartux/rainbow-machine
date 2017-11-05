@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "description": "Display text on Launchpad MK2",
   "license": "MIT",
+  "repository": "amoetodi/rainbow-machine",
   "author": {
     "name": "",
     "email": ""

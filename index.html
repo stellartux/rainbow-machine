@@ -2,23 +2,22 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Launchpad Text Display</title>
+		<title>Launchpad MK2 Text Display</title>
 		<link rel="stylesheet" href="index.css">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/webmidi@2.0.0-rc.10/webmidi.min.js"></script>
-		<script src="devices.js"></script>
 		<script src="index.js"></script>
 	</head>
 	<body>
 		<div class="container">
-			<h4>Text Display for Launchpad MKII</h4>
+			<h4>Text Display for Launchpad MK2</h4>
 			<div>
-				<input id="connectBtn" type="button" value="Connect" onclick="connect()" />
+				<input id="connectButton" type="button" value="Connect"></input>
 				<output id="connectionStatus">Not connected.</output>
 			</div>
+		<form id="userTextForm">
 			<div>
-				<label for="inputText">Display text on the Launchpad:</label>
-				<input id="inputText" type="text">
+				<label for="inputText">Display text on the Launchpad MK2:</label>
+				<input id="inputText" type="text" />
 			</div>
 			<div>
 				<label for="colorSelect">Select a colour:</label>
@@ -32,10 +31,11 @@
 				<label for="loopText">Loop the text:</label>
 				<input id="loopText" type="checkbox" />
 			<div>
-				<input id="sendText" type="button" value="Display" onclick="passText()" />
+				<input type="submit" value="Display"/>
 			</div>
+		</form>
 			<div>
-				<input id="stopText" type="button" value="Stop" onclick="device.stopText()" />
+				<input id="stopText" type="button" value="Stop" onclick="device.clear()" />
 			</div>
 		</div>
 	</body>

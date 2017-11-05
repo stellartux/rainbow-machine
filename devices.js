@@ -9,6 +9,7 @@ class GenericMIDIDevice {
       else {
         this.output = WebMidi.getOutputByName(this.name)
         this.input = WebMidi.getInputByName(this.name)
+        this.flash()
       }
     }, true)
   }
@@ -17,6 +18,7 @@ class GenericMIDIDevice {
   stopText() {} // Stop any text
   sendText(message, color, speed, loop) {}
   sendCommand() {}
+  flash() {}
 }
 
 class LaunchpadMKII extends GenericMIDIDevice {
@@ -55,7 +57,7 @@ class LaunchpadMKII extends GenericMIDIDevice {
     this.sendCommand([20])
   }
 
-  flash(i=0) {
-      this.sendText("|", i, 7)
+  flash(i=3) {
+    this.sendText("|", i, 7)
   }
 }

@@ -1,5 +1,15 @@
+var device
+var form
 
-let device
+window.onload = function () {
+  let connectButton = document.getElementById("connectButton")
+  connectButton.addEventListener("onclick", connect())
+  form = document.getElementById("userTextForm")
+  form.addEventListener("submit", (ev) => {
+    passText()
+    ev.preventDefault()
+  })
+}
 
 function connect() {
   device = new LaunchpadMKII
@@ -13,8 +23,8 @@ function connect() {
 function passText() {
   let inputText = document.getElementById('inputText').value
   let color = document.getElementById('colorSelect').value % 128
-  let loop = document.getElementById('loopText').checked ? 1 : 0
   let speed = document.getElementById('speed').value
+  let loop = document.getElementById('loopText').checked ? 1 : 0
 
   device.sendText(inputText, color, speed, loop)
 }
