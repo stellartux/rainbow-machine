@@ -29,16 +29,26 @@ window.onload = function () {
 }
 
 function setup() {
-    cnv = createCanvas(windowWidth, windowHeight)
-    for (let x = 10; x < windowWidth; x += 70) {
-      for (let y = 10; y < windowHeight; y += 70){
-        let p = new canvasPad(x,y)
-        boxes.push(p)
-      }
+  cnv = createCanvas(windowWidth, windowHeight)
+  makeBoxes()
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight)
+  makeBoxes()
+}
+
+function makeBoxes() {
+  boxes = []
+  for (let x = 10; x < windowWidth; x += 70) {
+    for (let y = 10; y < windowHeight; y += 70){
+      let p = new canvasPad(x,y)
+      boxes.push(p)
     }
-    for (b in boxes) {
-      boxes[b].display()
-    }
+  }
+  for (b in boxes) {
+    boxes[b].display()
+  }
 }
 
 
