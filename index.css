@@ -14,9 +14,9 @@ header {
 	display: grid;
 	justify-content: center;
 	text-align: center;
-	border: .3em solid #EA0;
-	padding: .2em;
-	margin: .5em auto;
+	border: .5vmin solid #EA0;
+	padding: 1vmin;
+	margin: 1vmin auto;
 }
 
 footer {
@@ -31,7 +31,7 @@ input {
 }
 
 input:focus {
-	box-shadow: 0px 0px 2px+.2em #EA0;
+	box-shadow: 0px 0px 4px+.5vmin #EA0;
 	border-color: #EA0;
 }
 
@@ -40,9 +40,9 @@ input:active {
 }
 
 form {
-	margin: 15px;
+	padding: .5vmin;
 }
 
 div {
-	padding: .3em;
+	padding: .5vmin;
 }
