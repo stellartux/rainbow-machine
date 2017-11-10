@@ -1,7 +1,6 @@
 {
   "name": "rainbow-machine",
   "productName": "Rainbow Machine",
-  "main": "main.js",
   "version": "0.1.0",
   "description": "Display text on Launchpad MK2",
   "license": "MIT",

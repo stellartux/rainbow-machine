@@ -17,6 +17,7 @@ header {
 	border: .5vmin solid #EA0;
 	padding: 1vmin;
 	margin: 1vmin auto;
+	background-color: #222222;
 }
 
 footer {
@@ -45,4 +46,11 @@ form {
 
 div {
 	padding: .5vmin;
+}
+
+canvas{
+	position:absolute;
+	left:0;
+	top:0;
+	z-index:-1;
 }
