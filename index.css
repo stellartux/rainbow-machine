@@ -9,7 +9,7 @@ header {
 }
 
 .container {
-	min-width: 480px;
+	min-width: 520px;
 	width: 60%;
 	display: grid;
 	justify-content: center;
