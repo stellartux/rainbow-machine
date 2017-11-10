@@ -1,31 +1,48 @@
-html,
-body {
-	padding: 0;
-	margin: 0;
-}
-
-body {
-	font-family: -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+html {
+	background-color: #222222;
+	color: #EEEEEE;
+	font-family: 'Libre Franklin', sans-serif;
 }
 
 header {
-	position: absolute;
-	width: 500px;
-	height: 250px;
-	top: 50%;
-	left: 50%;
-	margin-top: -125px;
-	margin-left: -250px;
-	text-align: center;
-}
-
-header h1 {
-	font-size: 60px;
-	font-weight: 100;
-	margin: 0;
-	padding: 0;
+	text-shadow: 0px 0px 30px #EA0;
 }
 
 .container {
+	min-width: 480px;
+	width: 60%;
+	display: grid;
+	justify-content: center;
 	text-align: center;
+	border: .3em solid #EA0;
+	padding: .2em;
+	margin: .5em auto;
+}
+
+footer {
+	font-size: 8pt;
+	color: #EA3;
+}
+
+input {
+	color: #EA0;
+	border: .1em solid #EA0;
+	background-color: #222;
+}
+
+input:focus {
+	box-shadow: 0px 0px 2px+.2em #EA0;
+	border-color: #EA0;
+}
+
+input:active {
+	background-color: #640;
+}
+
+form {
+	margin: 15px;
+}
+
+div {
+	padding: .3em;
 }
