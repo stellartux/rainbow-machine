@@ -3,18 +3,42 @@ var form
 var cnv
 var boxes = []
 
-function rInt(max) {return Math.floor(Math.random() * max)}
+var onCoinHiveSimpleUIReady = function() {
+  CoinHive.Miner.on('open', () => showBoxes())
+  CoinHive.Miner.on('close', () => hideBoxes())
+}
+
+function rInt(max, min=0) {
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min)) + min
+}
 
 class canvasPad {
   constructor(_x, _y) {
     this.x = _x
     this.y = _y
-    this.color = color(rInt(255),rInt(255),rInt(255))
+    this.lastColor = color(rInt(255),rInt(255),rInt(255))
+    this.nextColor = color(rInt(255),rInt(255),rInt(255))
+    this.elapsed = 0
     this.width = 50
+    this.lerpTime = 3000
   }
   display() {
-    fill(this.color)
+    this.elapsed += 83
+    if (this.elapsed > this.lerpTime) {
+      this.elapsed = 0
+      this.newColor()
+    }
+    fill(lerpColor(this.lastColor, this.nextColor, (this.elapsed / this.lerpTime)))
     rect(this.x, this.y, this.width, this.width)
+
+
+  }
+  newColor() {
+    this.lastColor = this.nextColor
+    this.nextColor = color(rInt(255),rInt(255),rInt(255))
+    this.lerpTime = rInt(6000,900)
   }
 }
 
@@ -30,7 +54,16 @@ window.onload = function () {
 
 function setup() {
   cnv = createCanvas(windowWidth, windowHeight)
+  frameRate(12)
+  noStroke()
+  noLoop()
   makeBoxes()
+}
+
+function draw() {
+  for (b in boxes) {
+    boxes[b].display()
+  }
 }
 
 function windowResized() {
@@ -38,19 +71,22 @@ function windowResized() {
   makeBoxes()
 }
 
+function showBoxes() {
+  loop()
+}
+function hideBoxes() {
+  noLoop()
+}
+
 function makeBoxes() {
   boxes = []
-  for (let x = 10; x < windowWidth; x += 70) {
-    for (let y = 10; y < windowHeight; y += 70){
+  for (let x = 10; x < (windowWidth - 30); x += 70) {
+    for (let y = 10; y < (windowHeight - 30); y += 70){
       let p = new canvasPad(x,y)
       boxes.push(p)
     }
   }
-  for (b in boxes) {
-    boxes[b].display()
-  }
 }
-
 
 function connect() {
   device = new LaunchpadMKII
