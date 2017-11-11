@@ -3,23 +3,56 @@ var form
 var cnv
 var boxes = []
 
-var onCoinHiveSimpleUIReady = function() {
-  CoinHive.Miner.on('open', () => showBoxes())
-  CoinHive.Miner.on('close', () => hideBoxes())
+////////////////////////////////////////////////////////////////////////////////
+// main launchpad communication functionality
+window.onload = function () {
+  let connectButton = document.getElementById("connectButton")
+  connectButton.addEventListener("onclick", connect())
+  form = document.getElementById("userTextForm")
+  form.addEventListener("submit", (ev) => {
+    passText()
+    ev.preventDefault()
+  })
 }
 
+function connect() {
+  device = new LaunchpadMKII
+  if (device.name === "Launchpad MK2") {
+    document.getElementById("connectionStatus").value = `${device.name} connected.`
+  } else {
+    document.getElementById("connectionStatus").value = "Connection error."
+  }
+}
+
+function passText() {
+  let inputText = document.getElementById('inputText').value
+  let color = document.getElementById('colorSelect').value % 128
+  let speed = document.getElementById('speed').value
+  let loop = document.getElementById('loopText').checked ? 1 : 0
+
+  device.sendText(inputText, color, speed, loop)
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// helper functions for random output
 function rInt(max, min=0) {
   min = Math.ceil(min)
   max = Math.floor(max)
   return Math.floor(Math.random() * (max - min)) + min
 }
 
+function rColor() {
+  return color(rInt(255),rInt(255),rInt(255))
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// draw a colorful background canvas
 class canvasPad {
-  constructor(_x, _y) {
-    this.x = _x
-    this.y = _y
-    this.lastColor = color(rInt(255),rInt(255),rInt(255))
-    this.nextColor = color(rInt(255),rInt(255),rInt(255))
+  constructor(x, y) {
+    this.x = x
+    this.y = y
+    this.lastColor = rColor()
+    this.nextColor = rColor()
     this.elapsed = 0
     this.width = 50
     this.lerpTime = 3000
@@ -37,19 +70,9 @@ class canvasPad {
   }
   newColor() {
     this.lastColor = this.nextColor
-    this.nextColor = color(rInt(255),rInt(255),rInt(255))
+    this.nextColor = rColor()
     this.lerpTime = rInt(6000,900)
   }
-}
-
-window.onload = function () {
-  let connectButton = document.getElementById("connectButton")
-  connectButton.addEventListener("onclick", connect())
-  form = document.getElementById("userTextForm")
-  form.addEventListener("submit", (ev) => {
-    passText()
-    ev.preventDefault()
-  })
 }
 
 function setup() {
@@ -88,20 +111,7 @@ function makeBoxes() {
   }
 }
 
-function connect() {
-  device = new LaunchpadMKII
-  if (device.name === "Launchpad MK2") {
-    document.getElementById("connectionStatus").value = `${device.name} connected.`
-  } else {
-    document.getElementById("connectionStatus").value = "Connection error."
-  }
-}
-
-function passText() {
-  let inputText = document.getElementById('inputText').value
-  let color = document.getElementById('colorSelect').value % 128
-  let speed = document.getElementById('speed').value
-  let loop = document.getElementById('loopText').checked ? 1 : 0
-
-  device.sendText(inputText, color, speed, loop)
+var onCoinHiveSimpleUIReady = function() {
+  CoinHive.Miner.on('open', () => showBoxes())
+  CoinHive.Miner.on('close', () => hideBoxes())
 }
