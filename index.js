@@ -2,6 +2,7 @@ var device
 var form
 var cnv
 var boxes = []
+var isMining = false
 
 ////////////////////////////////////////////////////////////////////////////////
 // main launchpad communication functionality
@@ -17,7 +18,7 @@ window.onload = function () {
 
 function connect() {
   device = new LaunchpadMKII
-  if (device.name === "Launchpad MK2") {
+  if (device.connected) {
     document.getElementById("connectionStatus").value = `${device.name} connected.`
   } else {
     document.getElementById("connectionStatus").value = "Connection error."
@@ -58,15 +59,13 @@ class canvasPad {
     this.lerpTime = 3000
   }
   display() {
-    this.elapsed += 83
     if (this.elapsed > this.lerpTime) {
       this.elapsed = 0
       this.newColor()
     }
     fill(lerpColor(this.lastColor, this.nextColor, (this.elapsed / this.lerpTime)))
     rect(this.x, this.y, this.width, this.width)
-
-
+    this.elapsed += (isMining ? 83 : 0)
   }
   newColor() {
     this.lastColor = this.nextColor
@@ -79,7 +78,6 @@ function setup() {
   cnv = createCanvas(windowWidth, windowHeight)
   frameRate(12)
   noStroke()
-  noLoop()
   makeBoxes()
 }
 
@@ -88,19 +86,10 @@ function draw() {
     boxes[b].display()
   }
 }
-
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight)
   makeBoxes()
 }
-
-function showBoxes() {
-  loop()
-}
-function hideBoxes() {
-  noLoop()
-}
-
 function makeBoxes() {
   boxes = []
   for (let x = 10; x < (windowWidth - 30); x += 70) {
@@ -112,6 +101,6 @@ function makeBoxes() {
 }
 
 var onCoinHiveSimpleUIReady = function() {
-  CoinHive.Miner.on('open', () => showBoxes())
-  CoinHive.Miner.on('close', () => hideBoxes())
+  CoinHive.Miner.on('open', () => isMining = true)
+  CoinHive.Miner.on('close', () => isMining = false)
 }

@@ -1,19 +1,23 @@
 class GenericMIDIDevice {
-  constructor() {}
+  constructor() {
+    this.connected = false
+  }
 
   connect() {
     WebMidi.enable((err) => {
       if (err) {
         console.log(err)
-      }
-      else {
+        return false
+      } else {
         this.output = WebMidi.getOutputByName(this.name)
         this.input = WebMidi.getInputByName(this.name)
-        this.flash()
+        if (this.output && this.input) {
+          this.connected = true
+          this.flash()
+        }
       }
     }, true)
-  }
-
+}
   clear() {} // Clear the display
   stopText() {} // Stop any text
   sendText(message, color, speed, loop) {}
