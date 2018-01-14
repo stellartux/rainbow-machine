@@ -82,8 +82,13 @@ function setup() {
 }
 
 function draw() {
+<<<<<<< HEAD
   for (b of boxes) {
     b.render()
+=======
+  for (b in boxes) {
+    boxes[b].render()
+>>>>>>> 20b1194469a6fc41ef682ac0c949d16cdd94169d
   }
 }
 function windowResized() {
