@@ -11,10 +11,17 @@ class GenericMIDIDevice {
       } else {
         this.output = WebMidi.getOutputByName(this.name)
         this.input = WebMidi.getInputByName(this.name)
-        if (this.output && this.input) {
-          this.connected = true
-          this.flash()
-        }
+        this.input.addListener("noteon", "all", (e) => {
+          console.log(`noteon ${e.data}`)
+        })
+        .addListener("noteoff", "all", (e) => {
+          console.log(`noteoff ${e.data}`)
+        })
+        .addListener("controlchange", "all", (e) => {
+          console.log(`cc ${e.data}`)
+        })
+        this.test()
+        this.connected = true
       }
     }, true)
 }
@@ -23,6 +30,9 @@ class GenericMIDIDevice {
   sendText(message, color, speed, loop) {}
   sendCommand() {}
   flash() {}
+  messageReceived() {}
+  noteOn() {}
+  noteOff() {}
 }
 
 class LaunchpadMKII extends GenericMIDIDevice {
@@ -61,7 +71,10 @@ class LaunchpadMKII extends GenericMIDIDevice {
     this.sendCommand([20])
   }
 
-  flash(i=3) {
+  test(i=3) {
     this.sendText("|", i, 7)
   }
+
+  noteOn() {}
+  noteOff() {}
 }

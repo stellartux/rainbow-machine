@@ -2,7 +2,7 @@ var device
 var form
 var cnv
 var boxes = []
-var isMining = false
+var textQueue = []
 
 ////////////////////////////////////////////////////////////////////////////////
 // main launchpad communication functionality
@@ -58,14 +58,14 @@ class canvasPad {
     this.width = 50
     this.lerpTime = 3000
   }
-  display() {
+  render() {
     if (this.elapsed > this.lerpTime) {
       this.elapsed = 0
       this.newColor()
     }
     fill(lerpColor(this.lastColor, this.nextColor, (this.elapsed / this.lerpTime)))
     rect(this.x, this.y, this.width, this.width)
-    this.elapsed += (isMining ? 83 : 0)
+    this.elapsed += 83
   }
   newColor() {
     this.lastColor = this.nextColor
@@ -82,8 +82,8 @@ function setup() {
 }
 
 function draw() {
-  for (b in boxes) {
-    boxes[b].display()
+  for (b of boxes) {
+    b.render()
   }
 }
 function windowResized() {
@@ -98,9 +98,4 @@ function makeBoxes() {
       boxes.push(p)
     }
   }
-}
-
-var onCoinHiveSimpleUIReady = function() {
-  CoinHive.Miner.on('open', () => isMining = true)
-  CoinHive.Miner.on('close', () => isMining = false)
 }
