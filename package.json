@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "Display text on Launchpad MK2",
   "license": "MIT",
-  "repository": "amoetodi/rainbow-machine",
+  "repository": "github.com/stellartux/rainbow-machine",
   "author": {
     "name": "",
     "email": ""
@@ -15,7 +15,8 @@
   "files": [
     "index.js",
     "index.html",
-    "index.css"
+    "index.css",
+    "devices.js"
   ],
 
   "devDependencies": {

@@ -20,9 +20,7 @@ function connect() {
   device = new LaunchpadMKII
   if (device.connected) {
     document.getElementById("connectionStatus").value = `${device.name} connected.`
-  } else {
-    document.getElementById("connectionStatus").value = "Connection error."
-  }
+  } 
 }
 
 function passText() {
