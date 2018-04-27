@@ -7,20 +7,12 @@ var textQueue = []
 ////////////////////////////////////////////////////////////////////////////////
 // main launchpad communication functionality
 window.onload = function () {
-  let connectButton = document.getElementById("connectButton")
-  connectButton.addEventListener("onclick", connect())
+  device = new LaunchpadMKII
   form = document.getElementById("userTextForm")
   form.addEventListener("submit", (ev) => {
     passText()
     ev.preventDefault()
   })
-}
-
-function connect() {
-  device = new LaunchpadMKII
-  if (device.connected) {
-    document.getElementById("connectionStatus").value = `${device.name} connected.`
-  } 
 }
 
 function passText() {
