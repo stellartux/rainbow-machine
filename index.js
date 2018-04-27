@@ -5,6 +5,7 @@ let form
 ////////////////////////////////////////////////////////////////////////////////
 // main launchpad communication functionality
 window.onload = function () {
+  device = new LaunchpadMKII
   form = document.getElementById("userTextForm")
   form.addEventListener("submit", (ev) => {
     passText()
