@@ -1,26 +1,15 @@
-var device
-var form
-var cnv
-var boxes = []
-var textQueue = []
+const device = new LaunchpadMKII
+let boxes = []
+let form
 
 ////////////////////////////////////////////////////////////////////////////////
 // main launchpad communication functionality
 window.onload = function () {
-  let connectButton = document.getElementById("connectButton")
-  connectButton.addEventListener("onclick", connect())
   form = document.getElementById("userTextForm")
   form.addEventListener("submit", (ev) => {
     passText()
     ev.preventDefault()
   })
-}
-
-function connect() {
-  device = new LaunchpadMKII
-  if (device.connected) {
-    document.getElementById("connectionStatus").value = `${device.name} connected.`
-  } 
 }
 
 function passText() {
@@ -73,7 +62,7 @@ class canvasPad {
 }
 
 function setup() {
-  cnv = createCanvas(windowWidth, windowHeight)
+  createCanvas(windowWidth, windowHeight)
   frameRate(12)
   noStroke()
   makeBoxes()
